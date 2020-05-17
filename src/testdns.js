@@ -1,4 +1,19 @@
-const dns = require('dns'); 
+const dns = require('dns');
+
+var monitor_domains;
+var monitor_interval;
+
+if( 'MONITOR_DOMAINS' in process.env) {
+    monitor_domains = process.env.MONITOR_DOMAINS.split(',');
+} else {
+    monitor_domains = ['google.com', 'amazon.com']
+}
+
+if ( 'MONITOR_INTERVAL' in process.env) {
+    monitor_interval = parseInt(process.env.MONITOR_INTERVAL)*1000;
+} else {
+    monitor_interval = 1000;
+}
 
 function logResult(domain, startTime, err, addresses) {
     const now = Date.now();
@@ -31,12 +46,6 @@ function measureDNS(domain, interval) {
     }, interval);
 }
 
-const testInterval = 2000;
-const domains = ['aftonbladet.se', 'dn.se', 'google.com'];
-
-for (const i in domains) {
-    measureDNS(domains[i], testInterval);
+for (const i in monitor_domains) {
+    measureDNS(monitor_domains[i], monitor_interval);
 }
-
-
-
