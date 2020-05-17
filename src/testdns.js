@@ -17,7 +17,7 @@ if ( 'MONITOR_INTERVAL' in process.env) {
 
 function logResult(domain, startTime, err, addresses) {
     const now = Date.now();
-    latency = now - startTime;
+    request_time = now - startTime;
     var ttl = -1;
 
     if(err) {
@@ -31,7 +31,7 @@ function logResult(domain, startTime, err, addresses) {
         dnsmetrics: {
             language: "nodejs",
             domain: domain,
-            latency: latency,
+            request_time: request_time,
             ttl: ttl,
             success: !err
         }
