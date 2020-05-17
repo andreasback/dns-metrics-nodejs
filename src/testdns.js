@@ -27,7 +27,7 @@ function logResult(domain, startTime, err, addresses) {
 //        console.log(addresses);
     }
 //todo: put error in log?
-    console.log( {
+    const log = {
         dnsmetrics: {
             language: "nodejs",
             domain: domain,
@@ -35,7 +35,9 @@ function logResult(domain, startTime, err, addresses) {
             ttl: ttl,
             success: !err
         }
-    });
+    };
+
+    console.log(JSON.stringify(log));
 }
 
 function measureDNS(domain, interval) {
